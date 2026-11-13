@@ -34,3 +34,6 @@ The converter used for this build was the temporary imageio-ffmpeg 0.6.0 bundled
 - Eating: qubodup, [Eating With Open Mouth](https://freesound.org/people/qubodup/sounds/210426/), CC0; public HQ MP3 preview, excerpt at 2.0 seconds, normalized with faded edges.
 - [Wilhelm Scream](https://commons.wikimedia.org/wiki/File:Wilhelm_Scream.ogg), CC0 as listed by Wikimedia Commons; normalized with faded edges. Plays on 5% of successful military vehicle destructions.
 - Opponent roars play only at special attack wind-up, never on entry or basic attacks.
+
+## Version 3.4
+Kaiju Rush uses original synthesized sip/gulp Foley (1.6 seconds). The qubodup chewing excerpt now lasts 1.6 seconds, using a stronger chewing passage at the 20.8-second source offset. Kong's roar is trimmed to its first 2.0 seconds after the existing silence trim, with a faded end.

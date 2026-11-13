@@ -1,9 +1,13 @@
-# Godzillagotchi 3.3
+# Godzillagotchi 3.4
 
 Unofficial Android 8+ virtual-pet game by Nova, designed around a 720 × 720 screen.
 
 ## Install
-Open Godzillagotchi-3.3.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+Open Godzillagotchi-3.4.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+
+## New in 3.4
+
+FEED > KAIJU RUSH restores 33 energy points (33% of the full bar), capped at 100. A teal can lifts and tilts to drink, with a sip/gulp sound, in all four themes. Chewing now lasts 1.6 seconds instead of 0.68 seconds; Kong's special roar lasts 2.0 seconds instead of 5.68 seconds. Saved pets and signing identity are retained.
 
 ## New in 3.3
 

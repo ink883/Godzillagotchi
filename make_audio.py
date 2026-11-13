@@ -28,6 +28,17 @@ def care():
    env=min(1,t/.003)*math.exp(-u*5)*(1-u)
    b[i]+=amp*env*(math.sin(phase)+.22*math.sin(phase*2)+rng.uniform(-.07,.07))
  records=[save('bubbles',b,.65)]
+ # Three wet gulps with a quiet sip between them; original synthesized Foley.
+ b=[0.]*int(RATE*1.6)
+ for start in [.08,.55,1.02]:
+  phase=0;low=0
+  for k in range(int(.42*RATE)):
+   t=k/RATE;u=t/.42;i=int(start*RATE)+k
+   low=.92*low+.08*rng.uniform(-1,1)
+   phase+=2*math.pi*(170+110*math.sin(u*math.pi)-70*u)/RATE
+   env=math.sin(math.pi*u)**2
+   b[i]+=env*(.48*math.sin(phase)+.24*math.sin(phase*1.95)+low*1.5)
+ records.append(save('drink',b,.65))
  return records
 
 def roars(ffmpeg):
@@ -36,7 +47,7 @@ def roars(ffmpeg):
   data=subprocess.check_output([ffmpeg,'-v','error','-i',str(ROOT/'art/audio-originals'/(name+'.ogg')),'-ac','1','-ar',str(RATE),'-f','s16le','-'])
   a=array.array('h');a.frombytes(data);values=[v/32768 for v in a]
   window=220;active=[i for i in range(0,len(a),window) if math.sqrt(sum(v*v for v in values[i:i+window])/len(values[i:i+window]))>.012]
-  first=max(0,active[0]-int(.025*RATE));last=min(len(a),active[-1]+window+int(.09*RATE));values=values[first:last]
+  first=max(0,active[0]-int(.025*RATE));last=min(len(a),active[-1]+window+int(.09*RATE));last=min(last,first+int(2.0*RATE)) if name=="kong" else last;values=values[first:last]
   # Gentle edges avoid clicks; moderate level targets reduce harsh differences between recordings.
   rms=math.sqrt(sum(x*x for x in values)/len(values));peak=min(.78,max(abs(x) for x in values)*(.18/rms))
   for i in range(len(values)):
@@ -46,7 +57,7 @@ def roars(ffmpeg):
 
 def foley(ffmpeg):
  records=[]
- for name,filename,start,duration in [('munch','chewing.mp3',2.0,.68),('wilhelm','wilhelm.ogg',0,1.6)]:
+ for name,filename,start,duration in [('munch','chewing.mp3',20.8,1.6),('wilhelm','wilhelm.ogg',0,1.6)]:
   data=subprocess.check_output([ffmpeg,'-v','error','-ss',str(start),'-i',str(ROOT/'art/audio-originals'/filename),'-t',str(duration),'-ac','1','-ar',str(RATE),'-f','s16le','-'])
   a=array.array('h');a.frombytes(data);values=[v/32768 for v in a]
   for i in range(len(values)):values[i]*=min(1,i/(RATE*.008),(len(values)-1-i)/(RATE*.025))

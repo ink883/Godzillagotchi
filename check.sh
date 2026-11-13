@@ -9,9 +9,9 @@ for f in src/com/nova/godzillagotchi/*.java; do
  case "$f" in */MainActivity.java|*/CareUI.java|*/Attention.java|*/GameSounds.java) ;; *) files+=("$f");; esac
 done
 "$JDK/bin/javac" -cp "$ANDROID_JAR" -d build/tests "${files[@]}" tests/*.java
-for test in PetTest CityTest SkinTest BattleTest RampageTest CareTest CareStoreTest ThemeTest SoundCuesTest InteractionTest; do
+for test in PetTest CityTest SkinTest BattleTest RampageTest CareTest CareStoreTest ThemeTest SoundCuesTest InteractionTest RushTest; do
  "$JDK/bin/java" -Djava.awt.headless=true -cp "build/tests:$ANDROID_JAR" "$test"
 done
-"$JDK/bin/java" -Djava.awt.headless=true -cp build/tests CarePreview res/drawable-nodpi ../godzillagotchi-3.3
+"$JDK/bin/java" -Djava.awt.headless=true -cp build/tests CarePreview res/drawable-nodpi ../godzillagotchi-3.4
 
 python3 tests/audio_check.py

@@ -7,14 +7,21 @@
     "sha256": "12cf7ee0fb40d7635c25002369f02ea98c814d6c184a8e8539e8dc0b11220807"
   },
   {
+    "asset": "drink.wav",
+    "duration": 1.6,
+    "peak": 0.65,
+    "rms": 0.1243,
+    "sha256": "4dbb6d0a558db49f66fcf63f4263b2449a5823e55ebedf50cfd84661fb6f3e87"
+  },
+  {
     "asset": "munch.wav",
-    "duration": 0.68,
+    "duration": 1.6,
     "peak": 0.72,
-    "rms": 0.0303,
-    "sha256": "5f4f800dfcf553c92717d2384056d1702e2e401150f30f80155cc4a46b6f451e",
+    "rms": 0.0556,
+    "sha256": "6ef96c4121b77932e4b42e67626171d449ea26de3726b6630c0bc4d332664114",
     "source_file": "chewing.mp3",
-    "source_start": 2.0,
-    "source_duration": 0.68
+    "source_start": 20.8,
+    "source_duration": 1.6
   },
   {
     "asset": "wilhelm.wav",
@@ -37,12 +44,12 @@
   },
   {
     "asset": "roar_kong.wav",
-    "duration": 5.682,
-    "peak": 0.78,
-    "rms": 0.1626,
-    "sha256": "6d48b74c61c2c56ae555ec7d773de60c3bf20ee72cece3e6f3c5b1c7278ab96a",
+    "duration": 2.0,
+    "peak": 0.6987,
+    "rms": 0.1788,
+    "sha256": "43bbaf5265d6ec8a97788c7bff72c19db6b4bc651be0f0cb64557f67e441a5f5",
     "source_start": 0.105,
-    "source_end": 5.787
+    "source_end": 2.105
   },
   {
     "asset": "roar_ghidorah.wav",

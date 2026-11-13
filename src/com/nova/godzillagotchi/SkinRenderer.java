@@ -31,13 +31,14 @@ public final class SkinRenderer {
    if(!s.pet.asleep&&s.now<s.effectEnd){
     if(s.effect.equals("roar")){d.text("SKREEONK!",426,160,18,INK);}
     if(s.effect.equals("fish")){
-     float age=2200-(s.effectEnd-s.now),travel=BattleAnimation.smooth((age-250)/1250f),eat=BattleAnimation.smooth((age-1500)/450f);
+     float age=SoundCues.FEED_MS-(s.effectEnd-s.now),travel=BattleAnimation.smooth((age-250)/1250f),eat=BattleAnimation.smooth((age-1500)/450f);
      float mouthX=355+size*.30f,mouthY=417-size*.63f+bob;
      int fish=Math.max(0,Math.min(2,s.fishType));float[] crop=FISH[fish];
      float fw=new float[]{110,104,90}[fish]*(1-eat),fh=fw*crop[3]/crop[2],fx=550+(mouthX-550)*travel,fy=mouthY-fh/2-18*(float)Math.sin(travel*Math.PI);
      if(fw>1){d.save();d.rotate(-6*(float)Math.sin(age/140),fx+fw/2,fy+fh/2);d.image("paper_props",crop[0],crop[1],crop[2],crop[3],fx,fy,fw,fh);d.restore();}
      if(age>1700){float rise=(age-1700)/35;for(int i=0;i<3;i++){float hx=mouthX+12+i*15,hy=mouthY-14-rise-i%2*9;d.rect(hx,hy,4,4,0xffffd890);d.rect(hx-3,hy+3,10,3,0xffffd890);d.rect(hx,hy+6,4,3,0xffffd890);}}
     }
+    if(s.effect.equals("drink"))RushArt.drink(d,s,size,bob);
     if(s.effect.equals("medicine"))PaperArt.prop(d,10,452,275,60,85);
     if(s.effect.equals("bath")){for(int i=0;i<14;i++){float bx=210+(i*37)%280,by=410-((s.now/12+i*43)%230),bs=18+i%4*6;d.save();d.rotate((float)Math.sin(s.now/400.0+i)*18,bx+bs/2,by+bs/2);PaperArt.prop(d,5,bx,by,bs,bs);d.restore();}}
    }
