@@ -1,0 +1,16 @@
+import com.nova.godzillagotchi.*;
+public class BattleTest {
+ static void check(boolean b,String m){if(!b)throw new AssertionError(m);}
+ static long finishTurn(Battle b){int guard=0;long last=b.nextAt;while(b.waiting&&guard++<8){last=b.nextAt;b.tick(last);}check(guard<8,"turn terminates");return last;}
+ public static void main(String[] args){
+ for(int move=0;move<4;move++){Battle b=new Battle(0);int hp=b.enemyHp;check(b.attack(move,1000),"attack");check(b.enemyHp==hp,"no damage before contact");check(!b.tick(1000+Battle.HIT_MS[move]-1),"windup");check(b.tick(1000+Battle.HIT_MS[move])&&b.enemyHp<hp,"damage on contact");check(!b.attack(0,1500),"no overlapping attacks");check(b.tick(1000+Battle.DURATION_MS[move])&&b.enemyEvent,"counter after recovery");int player=b.playerHp;check(!b.tick(b.nextAt-1)&&b.playerHp==player,"enemy windup");check(b.tick(b.nextAt)&&b.playerHp<player,"enemy contact");check(!b.canAttack(0),"enemy recovery lock");b.tick(b.nextAt);check(b.canAttack(0),"next turn ready");}
+ for(int who=0;who<6;who++){Battle special=new Battle(who);special.turn=2;special.attack(0,0);special.tick(special.nextAt);special.tick(special.nextAt);check(special.turn==3&&special.enemyEvent,"special counter begins");long start=special.eventAt;check(!special.tick(start+special.enemyHitMs()-1)&&special.playerHp==100,"special waits for contact");special.tick(start+special.enemyHitMs());check(special.playerHp==100-Battle.POWER[who]-5,"special hit damage");special.tick(start+special.enemyDurationMs());check(special.canAttack(0),"special recovery ends");}
+ Battle b=new Battle(0);check(!b.attack(-1,0)&&!b.attack(4,0),"invalid moves");b.attack(3,1000);check(b.charge==15,"breath cost");b.pause(1200);b.resume(10000);check(!b.tick(10699)&&b.tick(10700),"pause preserves hit timing");check(b.eventAt==9800,"pause preserves animation age");finishTurn(b);check(!b.attack(3,14000),"low charge guard");
+ for(int i=0;i<6;i++){b=new Battle(i);long now=0;int turns=0;while(!b.finished&&turns++<30){int move=b.charge>=45?3:Battle.WEAKNESS[i]==3?0:Battle.WEAKNESS[i];check(b.attack(move,now),"strategy");now=finishTurn(b)+100;}check(b.won(),"beatable "+i);Pet p=new Pet(0);check(b.claimReward(p)&&p.xp==25,"reward");check(!b.claimReward(p)&&p.xp==25,"one reward");check(!b.attack(0,now)&&!b.tick(now+10000),"finished immutable");}
+ b=new Battle(2);b.playerHp=1;b.attack(0,0);finishTurn(b);check(b.finished&&!b.won()&&b.playerHp==0,"knockout");Pet p=new Pet(0);b.claimReward(p);check(p.xp==0&&p.food==80&&p.energy==85,"safe loss");
+ b=new Battle(0);b.enemyHp=1;b.attack(0,0);b.tick(Battle.HIT_MS[0]);check(!b.finished&&b.enemyHp==0,"winning pose completes");b.tick(Battle.DURATION_MS[0]);check(b.won()&&!b.enemyEvent&&b.playerHp==100,"no counter on win");
+ for(int move=0;move<3;move++){b=new Battle(1);b.charge=99;b.attack(move,0);check(b.charge==100,"charge capped");}
+ for(int[] dims:new int[][]{{720,720},{360,360},{720,672},{1280,720}})for(int i=0;i<4;i++){float[] r=SkinLayout.fightButton(i);float s=SkinLayout.scale(dims[0],dims[1]);check(SkinLayout.offsetX(dims[0],dims[1])+(r[0]+r[2])*s<=dims[0]&&SkinLayout.offsetY(dims[0],dims[1])+(r[1]+r[3])*s<=dims[1],"buttons fit");}
+ System.out.println("PASS: four impact times, recovery/counter locks, pause animation timing, six beatable opponents, charge, win/loss, deduplicated rewards, bounds");
+ }
+}

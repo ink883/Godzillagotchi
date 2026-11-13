@@ -1,0 +1,8 @@
+.signing/
+build/
+*.apk
+*.jks
+*.keystore
+.DS_Store
+__pycache__/
+art/audio-originals/*-page.html

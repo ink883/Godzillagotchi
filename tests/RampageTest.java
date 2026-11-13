@@ -1,0 +1,15 @@
+import com.nova.godzillagotchi.*;
+public class RampageTest {
+ static void check(boolean b,String m){if(!b)throw new AssertionError(m);}
+ public static void main(String[] args){
+  for(int level=0;level<5;level++)for(int move=0;move<4;move++){Rampage r=new Rampage(level);r.tick(0);check(r.attack(move),"start");r.tick(Battle.HIT_MS[move]-1);check(r.hp==150,"wait for contact");r.tick(Battle.HIT_MS[move]);check(r.hp==150-Pet.damage(move,level)&&r.hp>0,"multi-hit even at max level");check(!r.attack(0),"recovery lock");r.tick(Battle.DURATION_MS[move]);check(r.canAttack(0),"ready");}
+  Rampage r=new Rampage(0);r.tick(100);r.attack(0);r.tick(200);r.pause();r.tick(100000);check(r.time==100&&r.hp==150,"background pauses all time");r.tick(100280);check(r.hp==136,"resumed impact");
+  r=new Rampage(0);r.tick(0);r.tick(3200);check(r.vehicles[0]!=null,"first threat");Rampage.Vehicle v=r.vehicles[0];float x=r.x(v);r.tick(4200);check(r.x(v)<x,"threat moves");check(!r.tap(60,160),"sky miss");check(r.tap(r.x(v)+10,r.y(v)+10)&&r.kills==1&&r.charge==65,"specific moving target hit");check(!r.tap(x,400),"no duplicate hit");
+  for(int type=0;type<3;type++){r=new Rampage(0);r.tick(0);r.nextSpawn=999999;r.vehicles[0]=new Rampage.Vehicle(type,0);r.tick(2200);check(r.health<100,"military attacks "+type);float tx=r.x(r.vehicles[0]),ty=r.y(r.vehicles[0]);check(r.tap(tx+20,ty+20),"hit type "+type);int health=r.health;r.tick(4400);check(r.health==health,"destroyed threat cannot shoot");}
+  for(int level=0;level<5;level++){r=new Rampage(level);r.tick(0);long now=0;int steps=0;while(!r.finished&&steps++<4000){for(Rampage.Vehicle target:r.vehicles)if(target!=null)r.tap(r.x(target)+20,r.y(target)+15);if(r.phase==0)r.attack(r.charge>=45?3:0);now+=80;r.tick(now);}check(r.won()&&r.building==8,"clear sequential towers at level "+level);Pet p=new Pet(0);check(r.claimReward(p)&&p.xp==20,"city reward");check(!r.claimReward(p)&&p.xp==20,"reward exactly once");}
+  r=new Rampage(0);r.tick(0);r.health=1;r.vehicles[0]=new Rampage.Vehicle(2,0);r.tick(2200);check(r.finished&&!r.won()&&!r.canAttack(0)&&!r.tap(500,240),"safe retreat locks input");
+  r=new Rampage(0);r.tick(0);r.hp=14;r.attack(0);r.tick(Battle.HIT_MS[0]);check(r.hp==0&&r.building==0,"destroy tower at contact");r.tick(Battle.HIT_MS[0]+1599);check(r.building==0&&!r.canAttack(0),"keep falling paper before next tower");r.pause();r.tick(90000);check(r.building==0,"collapse pauses in background");r.tick(90001);check(r.building==1&&r.hp==Rampage.maxHp(1)&&r.canAttack(0),"advance once collapse completes");
+  Pet p=new Pet(0);for(int i=0;i<5;i++){p.xp=Pet.LEVEL_XP[i];check(p.level()==i,"level threshold");if(i>0){p.xp--;check(p.level()==i-1,"threshold boundary");}Battle b=new Battle(0);b.level=i;b.attack(0,0);check(b.lastDamage==Pet.damage(0,i),"battle scales with level");}
+  System.out.println("PASS: multi-hit towers, timed impacts, pause, moving-target hit tests, military damage, all five levels clear, safe retreat, rewards, growth and battle damage");
+ }
+}

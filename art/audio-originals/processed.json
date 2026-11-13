@@ -1,0 +1,83 @@
+[
+  {
+    "asset": "bubbles.wav",
+    "duration": 1.8,
+    "peak": 0.65,
+    "rms": 0.1177,
+    "sha256": "12cf7ee0fb40d7635c25002369f02ea98c814d6c184a8e8539e8dc0b11220807"
+  },
+  {
+    "asset": "munch.wav",
+    "duration": 0.68,
+    "peak": 0.72,
+    "rms": 0.0303,
+    "sha256": "5f4f800dfcf553c92717d2384056d1702e2e401150f30f80155cc4a46b6f451e",
+    "source_file": "chewing.mp3",
+    "source_start": 2.0,
+    "source_duration": 0.68
+  },
+  {
+    "asset": "wilhelm.wav",
+    "duration": 1.6,
+    "peak": 0.72,
+    "rms": 0.1774,
+    "sha256": "74d85ee9b5c365f26536aae5adef99c5df5aec9b205d8f3a18338a73cfc079d4",
+    "source_file": "wilhelm.ogg",
+    "source_start": 0,
+    "source_duration": 1.6
+  },
+  {
+    "asset": "roar_mechagodzilla.wav",
+    "duration": 2.245,
+    "peak": 0.61,
+    "rms": 0.18,
+    "sha256": "a613e4c041198a72795463c5b357591e9ce10e8d9afe77ff91793362acce4716",
+    "source_start": 0.0,
+    "source_end": 2.245
+  },
+  {
+    "asset": "roar_kong.wav",
+    "duration": 5.682,
+    "peak": 0.78,
+    "rms": 0.1626,
+    "sha256": "6d48b74c61c2c56ae555ec7d773de60c3bf20ee72cece3e6f3c5b1c7278ab96a",
+    "source_start": 0.105,
+    "source_end": 5.787
+  },
+  {
+    "asset": "roar_ghidorah.wav",
+    "duration": 2.779,
+    "peak": 0.78,
+    "rms": 0.1393,
+    "sha256": "3d3c7bef2b29bc2a195ba717e11b8a7c4d77624ac668947b6e323a9dc2c0232c",
+    "source_start": 0.085,
+    "source_end": 2.864
+  },
+  {
+    "asset": "roar_rodan.wav",
+    "duration": 1.936,
+    "peak": 0.6543,
+    "rms": 0.18,
+    "sha256": "b998bfb6ea5a9f712128eb5dbdd9f79b5f911c0a1a167e387c79c51ddceac856",
+    "source_start": 0.0,
+    "source_end": 1.936
+  },
+  {
+    "asset": "roar_gigan.wav",
+    "duration": 1.068,
+    "peak": 0.7448,
+    "rms": 0.1795,
+    "sha256": "86e547ff5aa5443d60c80be15c17d1f5f15e3d9279a1721dbe71b6326a8e5770",
+    "source_start": 0.0,
+    "source_end": 1.068
+  },
+  {
+    "asset": "roar_anguirus.wav",
+    "duration": 2.677,
+    "peak": 0.6992,
+    "rms": 0.1799,
+    "sha256": "9ff2db433148e512517c869bf26989d13a4201f09fde74d84c8eba82a106e8f3",
+    "source_start": 0.0,
+    "source_end": 2.677
+  }
+]

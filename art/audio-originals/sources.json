@@ -1,0 +1,44 @@
+[
+  {
+    "monster": "mechagodzilla",
+    "file": "MechaGodzilla_Showa_Roar.ogg",
+    "page": "https://wikizilla.org/wiki/File:MechaGodzilla_Showa_Roar.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/f/fa/MechaGodzilla_Showa_Roar.ogg",
+    "sha256": "9fdf1e33dd6f8dacc0f1435401d7e2264986c48b4123b96ae9656d99820a34f7"
+  },
+  {
+    "monster": "kong",
+    "file": "Toho_King_Kong_Roar.ogg",
+    "page": "https://wikizilla.org/wiki/File:Toho_King_Kong_Roar.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/a/ad/Toho_King_Kong_Roar.ogg",
+    "sha256": "dd948ab9132e6bb092a21a6315695eb52bc537e19809171750cc35dbd22e03e2"
+  },
+  {
+    "monster": "ghidorah",
+    "file": "King_Ghidorah_Roar_Showa.ogg",
+    "page": "https://wikizilla.org/wiki/File:King_Ghidorah_Roar_Showa.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/f/fd/King_Ghidorah_Roar_Showa.ogg",
+    "sha256": "9c0ec76c8e8dbaebec2d850ce5527a5422b0f92893ce1ece02aead4d10d552bf"
+  },
+  {
+    "monster": "rodan",
+    "file": "Rodan_SFX.ogg",
+    "page": "https://wikizilla.org/wiki/File:Rodan_SFX.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/e/e1/Rodan_SFX.ogg",
+    "sha256": "0c04414395be12f5423c1e06824ed8c3bbc73320855ea4df9154efd8e1158726"
+  },
+  {
+    "monster": "gigan",
+    "file": "Showa_Gigan_SFX.ogg",
+    "page": "https://wikizilla.org/wiki/File:Showa_Gigan_SFX.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/0/0c/Showa_Gigan_SFX.ogg",
+    "sha256": "421ef2ff893f7928ba4cb66b69d1a3172cebdf63594f4957b8bcf67b7d2d0129"
+  },
+  {
+    "monster": "anguirus",
+    "file": "Anguirus_Roar_Showa.ogg",
+    "page": "https://wikizilla.org/wiki/File:Anguirus_Roar_Showa.ogg",
+    "download": "https://wikizilla-images.s3.us-east-va.perf.cloud.ovh.us/2/2f/Anguirus_Roar_Showa.ogg",
+    "sha256": "4dbdf1be12a6b7f418084bf46fdda00e933b274e4aee0094f01904559f4271cc"
+  }
+]

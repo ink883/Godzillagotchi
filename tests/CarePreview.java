@@ -1,0 +1,4 @@
+import com.nova.godzillagotchi.*;
+public class CarePreview {
+ public static void main(String[] args)throws Exception{SkinPreview p=new SkinPreview(args[0]);SkinRenderer.State s=new SkinRenderer.State();s.city=new City();s.night=false;s.now=100000;s.pet=new Pet(0);s.pet.hatched=false;s.pet.eggTaps=3;p.render(s,args[1]+"-egg.png");s.pet.hatched=true;s.pet.food=15;p.render(s,args[1]+"-hungry.png");s.pet.food=80;s.pet.joy=15;p.render(s,args[1]+"-bored.png");s.pet.sick=true;s.pet.messes=3;p.render(s,args[1]+"-sick.png");s.pet.sick=false;s.pet.messes=0;s.pet.joy=80;s.pet.lastHappy=s.now;p.render(s,args[1]+"-happy.png");s.pet.lastHappy=0;s.pet.asleep=true;s.pet.lightsOff=true;s.night=true;p.render(s,args[1]+"-bedtime.png");s.pet.asleep=false;s.pet.lightsOff=false;s.pet.xp=750;s.pet.bonds=8;p.render(s,args[1]+"-adult.png");System.out.println("Rendered egg, four expressions, bedtime and adult crest at 720 square.");}
+}
