@@ -22,5 +22,6 @@ public final class ThemePainter implements SkinRenderer.Painter {
  public void circle(float x,float y,float r,int c){d.circle(x,y,r,color(c));}
  public void polygon(float[] points,int c){d.polygon(points,color(c));}
  public void text(String t,float x,float y,float size,int c){d.text(t,x,y,size,theme==Theme.LCD?((c==0xff8098a2||c==0xff6e8998)?0xff69765c:LCD_INK):c);}
+ public void beginDisplay(boolean inverted){d.beginDisplay(inverted);}public void endDisplay(){d.endDisplay();}
  public void save(){d.save();}public void restore(){d.restore();}public void rotate(float angle,float x,float y){d.rotate(angle,x,y);}public void clipRound(float x,float y,float w,float h,float r){d.clipRound(x,y,w,h,r);}
 }

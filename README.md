@@ -1,9 +1,13 @@
-# Godzillagotchi 3.5
+# Godzillagotchi 3.6
 
 Unofficial Android 8+ virtual-pet game by Nova, designed around a 720 × 720 screen.
 
 ## Install
-Open Godzillagotchi-3.5.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+Open Godzillagotchi-3.6.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+
+## New in 3.6
+
+LCD display colors invert when CARE > LIGHTS OFF is enabled; switching the light on restores the normal palette. The inversion includes characters, text and meters, while the shell and buttons stay unchanged. The live screen follows the shell's inner glass contour, covering the baked-in scene strips previously visible at its edges. Character artwork, gameplay and pet saves are unchanged.
 
 ## New in 3.5
 

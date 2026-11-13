@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
  class AndroidPainter implements SkinRenderer.Painter {
   Canvas c;Paint p=new Paint(Paint.ANTI_ALIAS_FLAG);java.util.Map<String,Bitmap> images;
   AndroidPainter(Canvas canvas,java.util.Map<String,Bitmap> assets){c=canvas;images=assets;}
+  public void beginDisplay(boolean inverted){Paint layer=null;if(inverted){layer=new Paint();layer.setColorFilter(new android.graphics.ColorMatrixColorFilter(new float[]{-1,0,0,0,216,0,-1,0,0,232,0,0,-1,0,182,0,0,0,1,0}));}if(inverted)c.saveLayer(new RectF(40,78,680,503),layer);else c.save();float[] q=DisplayFrame.EDGE;Path clip=new Path();clip.moveTo(q[0],q[1]);for(int i=2;i<q.length;i+=2)clip.lineTo(q[i],q[i+1]);clip.close();c.clipPath(clip);}
+  public void endDisplay(){c.restore();}
   public void polygon(float[] points,int color){Path path=new Path();path.moveTo(points[0],points[1]);for(int i=2;i<points.length;i+=2)path.lineTo(points[i],points[i+1]);path.close();p.setColor(color);c.drawPath(path,p);}
   public void image(String name,float sx,float sy,float sw,float sh,float x,float y,float w,float h){Bitmap b=images.get(name);p.setColor(Color.WHITE);p.setFilterBitmap(true);c.drawBitmap(b,new Rect(Math.round(sx*b.getWidth()),Math.round(sy*b.getHeight()),Math.round((sx+sw)*b.getWidth()),Math.round((sy+sh)*b.getHeight())),new RectF(x,y,x+w,y+h),p);}
   public void rect(float x,float y,float w,float h,int color){p.setColor(color);c.drawRect(x,y,x+w,y+h,p);}

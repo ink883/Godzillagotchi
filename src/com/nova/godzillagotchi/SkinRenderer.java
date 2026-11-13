@@ -2,6 +2,7 @@ package com.nova.godzillagotchi;
 /** Actual app drawing, shared with the desktop renderer for visual verification. */
 public final class SkinRenderer {
  public interface Painter {
+  void beginDisplay(boolean inverted);void endDisplay();
   void image(String name,float sx,float sy,float sw,float sh,float x,float y,float w,float h);
   void polygon(float[] points,int color);
   void rect(float x,float y,float w,float h,int color);
@@ -16,9 +17,9 @@ public final class SkinRenderer {
  public void draw(Painter d,State s){
   d=new ThemePainter(d,s.theme,s.night);
   d.image("shell",0,0,1,1,0,0,720,720);
-  d.save();d.clipRound(50,80,620,417,28);
-  d.rect(50,80,620,417,0xff081d2b);
-  d.image("paper_background",0,s.night?.5f:0,1,.5f,50,108,620,337);
+  d.beginDisplay(DisplayFrame.inverted(s));
+  d.rect(40,78,640,425,0xff081d2b);
+  d.image("paper_background",0,s.night?.5f:0,1,.5f,40,108,640,337);
   if(s.rampage!=null){RampageRenderer.draw(d,s);}else if(s.battle!=null){drawBattle(d,s);}else if(s.showCity){d.rect(50,108,620,337,s.night?0xa5081729:0x73405f79);drawCity(d,s);}else{
    float growth=s.pet.sizeScale();
    float size=260*growth;float bob=s.pet.asleep?0:(float)Math.sin(s.now/320.0)*2;
@@ -45,22 +46,22 @@ public final class SkinRenderer {
   }
   if(s.battle==null&&s.rampage==null&&!s.showCity)CareRenderer.overlay(d,s);
   // HUD and meters are rendered from live game state, never baked-in values.
-  d.rect(50,80,620,28,0xff081d2b);d.rect(50,105,620,2,0xff245568);
+  d.rect(40,78,640,30,0xff081d2b);d.rect(40,105,640,2,0xff245568);
   String stage="LV "+(s.pet.level()+1)+" "+s.pet.stage();
   d.text(s.battle!=null?"KAIJU BATTLE":stage,76,99,14,0xffdceef0);d.text(s.pet.xp+" XP",367,99,14,0xffdceef0);d.text(s.night?"NIGHT":"DAY",586,99,14,0xffdceef0);
   if(s.battle!=null||s.rampage!=null){}else if(s.playing){d.round(145,113,430,25,8,0xec082332);d.text("STOMP "+s.city.count+"/10   "+Math.max(0,(s.gameEnd-s.now+999)/1000)+"s  / TAP BUILDINGS",160,131,13,INK);}
   else if(s.showCity){d.round(217,113,286,25,8,0xec082332);d.text("CITY STOMPED! +12 XP",237,131,16,INK);}
   else if(s.now<s.effectEnd){d.round(76,416,568,25,8,0xdd092330);d.text(s.message,90,433,13,INK);}
-  if(s.rampage!=null){Rampage r=s.rampage;d.rect(50,445,620,52,0xff082330);d.text(r.log,67,466,13,INK);d.text("LV "+(s.pet.level()+1)+" / "+r.kills+" THREATS STOPPED   "+(r.finished?"BACK TO PET":r.phase>0?"ATTACK IN PROGRESS":"CHOOSE AN ATTACK"),67,486,12,CYAN);}
+  if(s.rampage!=null){Rampage r=s.rampage;d.rect(40,445,640,57,0xff082330);d.text(r.log,67,466,13,INK);d.text("LV "+(s.pet.level()+1)+" / "+r.kills+" THREATS STOPPED   "+(r.finished?"BACK TO PET":r.phase>0?"ATTACK IN PROGRESS":"CHOOSE AN ATTACK"),67,486,12,CYAN);}
   else if(s.battle==null){
-  d.rect(50,445,620,52,0xff082330);d.rect(50,445,620,2,0xff2b7181);
+  d.rect(40,445,640,57,0xff082330);d.rect(40,445,640,2,0xff2b7181);
   String[] labels={"FOOD","JOY","ENERGY","CLEAN"};int[] colors={0xff68e980,0xffffd87c,0xff40d5ed,0xffa492f2};double[] v={s.pet.food,s.pet.joy,s.pet.energy,s.pet.clean};
   for(int i=0;i<4;i++){float x=50+i*155; if(i>0)d.rect(x,447,1,49,0xff2b5663);
    PaperArt.prop(d,new int[]{0,7,11,5}[i],x+5,451,32,34);
    d.text(labels[i],x+44,464,12,0xffdceef0);d.round(x+44,473,76,12,3,0xff244554);d.round(x+44,473,(float)(76*v[i]/100),12,3,colors[i]);d.text(""+(int)v[i],x+125,484,12,colors[i]);
   }
   }
-  d.restore();
+  d.endDisplay();
   if(s.rampage!=null)RampageRenderer.buttons(d,s.rampage);
   else if(s.battle!=null)battleButtons(d,s);
   else CareRenderer.buttons(d,s.pet.asleep);
@@ -72,7 +73,7 @@ public final class SkinRenderer {
   d.round(74,143,255,10,3,0xff213e4e);d.round(74,143,255*b.playerHp/100f,10,3,0xff6de58c);
   d.round(387,143,255,10,3,0xff213e4e);d.round(387,143,255*b.enemyHp/(float)Battle.MAX_HP[b.opponent],10,3,0xffffa17a);
   BattleAnimation.draw(d,s);
-  d.rect(50,445,620,52,0xff082330);d.rect(50,445,620,2,0xff2b7181);
+  d.rect(40,445,640,57,0xff082330);d.rect(40,445,640,2,0xff2b7181);
   d.text("CHARGE "+b.charge+"/100",67,466,13,CYAN);d.round(67,477,150,8,3,0xff254c5d);d.round(67,477,b.charge*1.5f,8,3,CYAN);
   d.text(b.log,237,466,13,INK);d.text(b.finished?"Tap BACK TO PET":b.waiting?(b.enemyEvent?"Opponent attack / recovering...":"Your attack / recovering..."):"Choose PUNCH / KICK / TAIL / BREATH",237,486,12,0xff9ac6cc);
   if(b.finished){d.round(149,225,422,102,16,0xf0082435);d.text(b.won()?"VICTORY!":"KNOCKED OUT",223,268,30,b.won()?0xff9cf3a5:0xffffbf90);d.text(b.won()?"+25 GROWTH XP / +20 JOY":"Your pet is safe. Try again!",211,302,16,INK);}
