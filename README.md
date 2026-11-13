@@ -1,9 +1,13 @@
-# Godzillagotchi 3.4
+# Godzillagotchi 3.5
 
 Unofficial Android 8+ virtual-pet game by Nova, designed around a 720 × 720 screen.
 
 ## Install
-Open Godzillagotchi-3.4.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+Open Godzillagotchi-3.5.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+
+## New in 3.5
+
+Poop taps play the supplied slime splatter; CLEAN still plays bath bubbles. The launcher icon is the approved grumpy vinyl Godzilla. PLAY > CITY STOMP now lets you choose one target: the original tower, Japanese shiro, Eiffel Tower, Leaning Tower of Pisa, Trump Tower, Burj Khalifa, or Taj Mahal. One building ends the outing after its collapse. All targets still take multiple hits, with animated attacks, moving military threats, and early exit. All four themes have matching landmark sprites. Existing active city saves migrate to a single remaining tower; pet progress is retained.
 
 ## New in 3.4
 

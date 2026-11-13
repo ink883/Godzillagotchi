@@ -3,7 +3,7 @@ import java.awt.*;import java.awt.geom.*;import java.awt.image.*;import javax.im
 /** Runs the same renderer as Android, using Java2D as the drawing backend. */
 public class SkinPreview implements SkinRenderer.Painter {
  Graphics2D g;Map<String,BufferedImage> assets=new HashMap<>();Deque<Graphics2D> stack=new ArrayDeque<>();
- SkinPreview(String path)throws Exception{for(int theme=0;theme<4;theme++)for(String name:Theme.assets(theme))if(!assets.containsKey(name))assets.put(name,ImageIO.read(new File(path+"/"+name+".png")));}
+ SkinPreview(String path)throws Exception{for(int theme=0;theme<4;theme++)for(String name:Theme.assets(theme))if(!assets.containsKey(name)){BufferedImage image=ImageIO.read(new File(path+"/"+name+".png"));if(name.equals("lcd_landmarks")){int w=image.getWidth(),h=image.getHeight();int[] pixels=image.getRGB(0,0,w,h,null,0,w);LcdPalette.apply(pixels);image.setRGB(0,0,w,h,pixels,0,w);}assets.put(name,image); }}
  public void polygon(float[] points,int color){Path2D.Float path=new Path2D.Float();path.moveTo(points[0],points[1]);for(int i=2;i<points.length;i+=2)path.lineTo(points[i],points[i+1]);path.closePath();g.setColor(new Color(color,true));g.fill(path);}
  public void image(String n,float sx,float sy,float sw,float sh,float x,float y,float w,float h){BufferedImage b=assets.get(n);g.drawImage(b,Math.round(x),Math.round(y),Math.round(x+w),Math.round(y+h),Math.round(sx*b.getWidth()),Math.round(sy*b.getHeight()),Math.round((sx+sw)*b.getWidth()),Math.round((sy+sh)*b.getHeight()),null);}
  public void rect(float x,float y,float w,float h,int color){g.setColor(new Color(color,true));g.fill(new Rectangle2D.Float(x,y,w,h));}

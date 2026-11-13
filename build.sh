@@ -17,6 +17,6 @@ cp build/resources.apk build/unsigned.apk
 if [ ! -f .signing/personal.jks ]; then
  "$JDK/bin/keytool" -genkeypair -keystore .signing/personal.jks -storepass android -keypass android -alias personal -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=Nova Personal Build'
 fi
-"$BT/apksigner" sign --ks .signing/personal.jks --ks-pass pass:android --out ../Godzillagotchi-3.4.apk build/aligned.apk
-"$BT/apksigner" verify --verbose ../Godzillagotchi-3.4.apk
-"$BT/aapt" dump badging ../Godzillagotchi-3.4.apk
+"$BT/apksigner" sign --ks .signing/personal.jks --ks-pass pass:android --out ../Godzillagotchi-3.5.apk build/aligned.apk
+"$BT/apksigner" verify --verbose ../Godzillagotchi-3.5.apk
+"$BT/aapt" dump badging ../Godzillagotchi-3.5.apk

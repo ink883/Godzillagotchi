@@ -37,3 +37,6 @@ The converter used for this build was the temporary imageio-ffmpeg 0.6.0 bundled
 
 ## Version 3.4
 Kaiju Rush uses original synthesized sip/gulp Foley (1.6 seconds). The qubodup chewing excerpt now lasts 1.6 seconds, using a stronger chewing passage at the 20.8-second source offset. Kong's roar is trimmed to its first 2.0 seconds after the existing silence trim, with a faded end.
+
+## Version 3.5
+Poop pickup uses the user-supplied `floraphonic-slime-splatter-7-220269.mp3`, retained as `audio-originals/poop_splatter.mp3`. Converted to mono 22050 Hz PCM, normalized with click-free fades; audible duration approximately 0.408 seconds. No license grant is inferred from the filename. CLEAN continues to use the separate bubbling bath sound.

@@ -34,6 +34,16 @@
     "source_duration": 1.6
   },
   {
+    "asset": "poop_splatter.wav",
+    "duration": 0.408,
+    "peak": 0.72,
+    "rms": 0.0702,
+    "sha256": "b7c68d8527df4a094eb2ea70b5bb7484d5e3610d29e35ff5c015a15e854dac51",
+    "source_file": "poop_splatter.mp3",
+    "source_start": 0,
+    "source_duration": 1.0
+  },
+  {
     "asset": "roar_mechagodzilla.wav",
     "duration": 2.245,
     "peak": 0.61,

@@ -8,10 +8,10 @@ public final class Theme {
  public static int load(SharedPreferences p){return valid(p.getInt("theme",PUPPET));}
  public static void save(SharedPreferences p,int id){p.edit().putInt("theme",valid(id)).apply();}
  public static String[] assets(int id){switch(valid(id)){
- case CLASSIC:return new String[]{"shell","pet_sprite","pet_sleep","pet_roar","care_poses","attack_poses","opponents","enemy_attacks","fish_types","city_atlas"};
- case VINYL:return new String[]{"shell","vinyl_pet","vinyl_enemies","vinyl_props","vinyl_scenery","vinyl_background"};
- case LCD:return new String[]{"shell","lcd_pet","lcd_enemies","lcd_props"};
- default:return new String[]{"shell","paper_pet","paper_states","paper_attacks","paper_opponents","paper_enemy_attacks","paper_background","paper_scenery","paper_props"};}}
+ case CLASSIC:return new String[]{"classic_landmarks","shell","pet_sprite","pet_sleep","pet_roar","care_poses","attack_poses","opponents","enemy_attacks","fish_types","city_atlas"};
+ case VINYL:return new String[]{"vinyl_landmarks","shell","vinyl_pet","vinyl_enemies","vinyl_props","vinyl_scenery","vinyl_background"};
+ case LCD:return new String[]{"lcd_landmarks","shell","lcd_pet","lcd_enemies","lcd_props"};
+ default:return new String[]{"paper_landmarks","shell","paper_pet","paper_states","paper_attacks","paper_opponents","paper_enemy_attacks","paper_background","paper_scenery","paper_props"};}}
  public static final class Sprite {public final String name;public final float[] bounds;Sprite(String n,float[] b){name=n;bounds=b;}}
  static float[][] source(String n){if(n.equals("paper_pet"))return PaperArt.PET;if(n.equals("paper_states"))return PaperArt.STATES;if(n.equals("paper_attacks"))return PaperArt.ATTACKS;if(n.equals("paper_opponents"))return PaperArt.OPPONENTS;if(n.equals("paper_enemy_attacks"))return PaperArt.ENEMY_ATTACKS;if(n.equals("paper_props"))return PaperArt.PROPS;if(n.equals("paper_scenery"))return PaperArt.SCENERY;return null;}
  static int index(float[][] rows,float sx,float sy,float sw,float sh){float cx=sx+sw/2,cy=sy+sh/2;for(int i=0;i<rows.length;i++){float[] q=rows[i];if(cx>=q[0]-.001f&&cx<=q[0]+q[2]+.001f&&cy>=q[1]-.001f&&cy<=q[1]+q[3]+.001f)return i;}throw new IllegalArgumentException("Unknown sprite bounds "+sx+","+sy);}

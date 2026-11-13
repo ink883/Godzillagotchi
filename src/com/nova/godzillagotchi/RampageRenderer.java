@@ -4,11 +4,12 @@ public final class RampageRenderer {
  public static void draw(SkinRenderer.Painter d,SkinRenderer.State s){Rampage r=s.rampage;
 
   d.round(62,113,596,47,8,0xee082332);
-  d.text("TOWER "+Math.min(8,r.building+1)+"/8   HP "+r.hp+"/"+Rampage.maxHp(Math.min(7,r.building)),75,132,14,0xfff0e8cc);
+  d.text(Landmarks.NAMES[r.landmark]+"  HP "+r.hp+"/150",75,132,14,0xfff0e8cc);
   d.text("HEALTH "+r.health+"   CHARGE "+r.charge,75,151,13,0xff69e4f1);
   if(!r.finished){float[] exit=SkinLayout.cityExitButton();d.round(exit[0],exit[1],exit[2],exit[3],10,0xff326b77);d.text("LEAVE CITY",exit[0]+17,exit[1]+28,18,0xfff0e8cc);}
   float age=r.time-r.hitAt,x=444+(age>=0&&age<300?(float)Math.sin(age/22)*4:0);
-  if(r.building<8){int stage=r.hp==Rampage.maxHp(r.building)?0:r.hp>Rampage.maxHp(r.building)/2?1:2;float[] source=PaperArt.SCENERY[stage];
+  if(r.landmark>0){LandmarkRenderer.draw(d,s,x);}
+  else if(r.building<Rampage.BUILDINGS){int stage=r.hp==Rampage.maxHp(r.building)?0:r.hp>Rampage.maxHp(r.building)/2?1:2;float[] source=PaperArt.SCENERY[stage];
    if(r.hp>0)PaperArt.draw(d,"paper_scenery",source,x,173,166,253);
    else {float t=Math.min(1.6f,Math.max(0,age/1000f));for(int row=0;row<5;row++)for(int col=0;col<3;col++){int i=row*3+col;float delay=(4-row)*.055f,fall=Math.max(0,t-delay),sx=x+col*166/3f+(float)Math.sin(fall*5+i)*fall*24,sy=173+row*253/5f+fall*fall*220;float w=166/3f,h=253/5f;d.save();d.rotate((i%2==0?1:-1)*fall*(65+i*7),sx+w/2,sy+h/2);d.image("paper_scenery",source[0]+source[2]*col/3,source[1]+source[3]*row/5,source[2]/3,source[3]/5,sx,sy,w,h);d.restore();}}
    d.round(x,433,166,7,2,0xff132d3e);d.round(x,433,166*r.hp/Rampage.maxHp(r.building),7,2,0xffffb571);
@@ -20,7 +21,7 @@ public final class RampageRenderer {
   if(r.time-r.shotAt<500){float t=(r.time-r.shotAt)/500f;d.circle(r.shotX+(210-r.shotX)*t,r.shotY+(345-r.shotY)*t,4,0xffffa764);if(t>.65f)BattleAnimation.burst(d,210,345,(t-.65f)*700,0xffff9869);}
   if(r.time-r.popAt<500)BattleAnimation.burst(d,r.popX,r.popY,r.time-r.popAt,0xffffdc98);
   d.round(62,409,328,26,7,0xe5082332);d.text("TAP TANKS / HELICOPTERS / JETS",73,427,12,0xfff0e8cc);
-  if(r.finished){d.round(119,250,482,105,15,0xf0082435);d.text(r.won()?"CITY SMASHED!":"TIME TO RETREAT",178,289,26,0xfff0e8cc);d.text(r.won()?"+20 XP / +25 JOY":"Your pet is safe. Try again!",176,325,17,0xff69e4f1);}
+  if(r.finished){d.round(119,250,482,105,15,0xf0082435);d.text(r.won()?"BUILDING SMASHED!":"TIME TO RETREAT",178,289,26,0xfff0e8cc);d.text(r.won()?"+20 XP / +25 JOY":"Your pet is safe. Try again!",176,325,17,0xff69e4f1);}
  }
  static void vehicle(SkinRenderer.Painter d,Rampage r,Rampage.Vehicle v,int theme){float x=r.x(v),y=r.y(v),w=Rampage.width(v),h=Rampage.height(v);
   if(theme==Theme.PUPPET&&v.type==0){d.rect(x+w*.55f,y+h-4,6,445-y-h+4,0xff8d633e);d.rect(x+w*.55f+1,y+h-4,2,445-y-h+4,0xffd1ad70);}

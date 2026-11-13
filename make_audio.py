@@ -57,7 +57,7 @@ def roars(ffmpeg):
 
 def foley(ffmpeg):
  records=[]
- for name,filename,start,duration in [('munch','chewing.mp3',20.8,1.6),('wilhelm','wilhelm.ogg',0,1.6)]:
+ for name,filename,start,duration in [('munch','chewing.mp3',20.8,1.6),('wilhelm','wilhelm.ogg',0,1.6),('poop_splatter','poop_splatter.mp3',0,1.0)]:
   data=subprocess.check_output([ffmpeg,'-v','error','-ss',str(start),'-i',str(ROOT/'art/audio-originals'/filename),'-t',str(duration),'-ac','1','-ar',str(RATE),'-f','s16le','-'])
   a=array.array('h');a.frombytes(data);values=[v/32768 for v in a]
   for i in range(len(values)):values[i]*=min(1,i/(RATE*.008),(len(values)-1-i)/(RATE*.025))
