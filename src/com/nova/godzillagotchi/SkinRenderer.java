@@ -11,7 +11,7 @@ public final class SkinRenderer {
   void circle(float x,float y,float r,int color);
   void save();void restore();void rotate(float degrees,float cx,float cy);void clipRound(float x,float y,float w,float h,float radius);
  }
- public static class State {public int theme=Theme.PUPPET;public int fishType;public Pet pet;public Harbor harbor;public long harborNow;public Rampage rampage;public City city;public Battle battle;public long battleNow;public boolean night,playing,showCity;public long now,gameEnd,effectEnd;public String effect="",message="";}
+ public static class State {public int theme=Theme.PUPPET;public int fishType;public Pet pet;public Scrub scrub;public Harbor harbor;public long harborNow;public Rampage rampage;public City city;public Battle battle;public long battleNow;public boolean night,playing,showCity;public long now,gameEnd,effectEnd;public String effect="",message="";}
  static final float[][] FISH=PaperArt.PROPS;
  final int INK=0xfff0e8cc,CYAN=0xff69e4f1;
  public void draw(Painter d,State s){
@@ -32,11 +32,20 @@ public final class SkinRenderer {
   if(s.rampage!=null){RampageRenderer.draw(d,s);}else if(s.battle!=null){drawBattle(d,s);}else if(s.showCity){d.rect(50,108,620,337,s.night?0xa5081729:0x73405f79);drawCity(d,s);}else{
    float growth=s.pet.sizeScale();
    float size=260*growth;float bob=s.pet.asleep?0:(float)Math.sin(s.now/320.0)*2;
-   if(!s.pet.hatched){CareRenderer.egg(d,s);}
+   int request=s.now>=s.effectEnd?s.pet.outings.request(s.pet,s.now):Outings.NONE;
+   if(s.scrub!=null){
+    PaperArt.pet(d,s.scrub.removed>=2?5:-1,355-size/2,417-size,size,size);
+    s.scrub.draw(d,s.now);
+   }
+   else if(!s.pet.hatched){CareRenderer.egg(d,s);}
    else if(s.pet.asleep){float breathing=(float)Math.sin(s.now/850.0)*1.5f;PaperArt.pet(d,0,355-size/2,417-size-breathing,size,size+breathing);}
    else if(s.effect.equals("roar")&&s.now<s.effectEnd){float age=5000-(s.effectEnd-s.now);float lift=BattleAnimation.smooth(age/350)*BattleAnimation.smooth((5000-age)/350);d.save();d.rotate(-3*lift*(float)Math.sin(age/130),355,410);PaperArt.pet(d,1,355-size/2,417-size-5*lift,size,size+5*lift);d.restore();}
    else if(s.pet.expression(s.now)>=0){int pose=s.pet.expression(s.now);PaperArt.pet(d,pose+2,355-size/2,417-size+bob,size,size);}
-   else PaperArt.pet(d,-1,355-size/2,417-size+bob,size,size);
+   else {
+    float nudge=request==Outings.HARBOR?5*(float)Math.sin(s.now/900.0):0;
+    if(request==Outings.CITY)bob-=Math.max(0,(float)Math.sin(s.now/165.0))*6;
+    PaperArt.pet(d,request==Outings.BATTLE?1:-1,355-size/2+nudge,417-size+bob,size,size);
+   }
    if(s.pet.asleep){d.round(413,164,95,34,12,0xaa102a39);d.text("z Z Z",425,188,20,INK);}
    if(!s.pet.asleep&&s.now<s.effectEnd){
     if(s.effect.equals("roar")){d.text("SKREEONK!",426,160,18,INK);}
@@ -50,17 +59,21 @@ public final class SkinRenderer {
     }
     if(s.effect.equals("drink"))RushArt.drink(d,s,size,bob);
     if(s.effect.equals("medicine"))PaperArt.prop(d,10,452,275,60,85);
-    if(s.effect.equals("bath")){for(int i=0;i<14;i++){float bx=210+(i*37)%280,by=410-((s.now/12+i*43)%230),bs=18+i%4*6;d.save();d.rotate((float)Math.sin(s.now/400.0+i)*18,bx+bs/2,by+bs/2);PaperArt.prop(d,5,bx,by,bs,bs);d.restore();}}
+    if(s.scrub==null&&s.effect.equals("bath")){for(int i=0;i<14;i++){float bx=210+(i*37)%280,by=410-((s.now/12+i*43)%230),bs=18+i%4*6;d.save();d.rotate((float)Math.sin(s.now/400.0+i)*18,bx+bs/2,by+bs/2);PaperArt.prop(d,5,bx,by,bs,bs);d.restore();}}
    }
   }
-  if(s.battle==null&&s.rampage==null&&!s.showCity)CareRenderer.overlay(d,s);
+  if(s.scrub!=null){
+   d.round(68,114,584,29,9,0xe0082332);
+   d.text(s.scrub.finished()?"Squeaky clean!":s.scrub.status(),79,134,15,INK);
+  }
+  else if(s.battle==null&&s.rampage==null&&!s.showCity)CareRenderer.overlay(d,s);
   // HUD and meters are rendered from live game state, never baked-in values.
   d.rect(40,78,640,30,0xff081d2b);d.rect(40,105,640,2,0xff245568);
   String stage="LV "+(s.pet.level()+1)+" "+s.pet.stage();
   d.text(s.battle!=null?"KAIJU BATTLE":stage,76,99,14,0xffdceef0);d.text(s.pet.xp+" XP",367,99,14,0xffdceef0);d.text(s.night?"NIGHT":"DAY",586,99,14,0xffdceef0);
   if(s.battle!=null||s.rampage!=null){}else if(s.playing){d.round(145,113,430,25,8,0xec082332);d.text("STOMP "+s.city.count+"/10   "+Math.max(0,(s.gameEnd-s.now+999)/1000)+"s  / TAP BUILDINGS",160,131,13,INK);}
   else if(s.showCity){d.round(217,113,286,25,8,0xec082332);d.text("CITY STOMPED! +12 XP",237,131,16,INK);}
-  else if(s.now<s.effectEnd){d.round(76,416,568,25,8,0xdd092330);d.text(s.message,90,433,13,INK);}
+  else if(s.scrub==null&&s.now<s.effectEnd){d.round(76,416,568,25,8,0xdd092330);d.text(s.message,90,433,13,INK);}
   if(s.rampage!=null){Rampage r=s.rampage;d.rect(40,445,640,57,0xff082330);d.text(r.log.replace("paper tearing",s.theme==Theme.VINYL?"shell buckling":s.theme==Theme.LCD?"segments dropping out":"paper tearing"),67,466,13,INK);d.text("LV "+(s.pet.level()+1)+" / "+r.kills+" THREATS STOPPED   "+(r.finished?"BACK TO PET":r.phase>0?"ATTACK IN PROGRESS":"CHOOSE AN ATTACK"),67,486,12,CYAN);}
   else if(s.battle==null){
   d.rect(40,445,640,57,0xff082330);d.rect(40,445,640,2,0xff2b7181);
@@ -73,6 +86,12 @@ public final class SkinRenderer {
   d.endDisplay();
   if(s.rampage!=null)RampageRenderer.buttons(d,s.rampage);
   else if(s.battle!=null)battleButtons(d,s);
+  else if(s.scrub!=null){
+   d.rect(0,527,720,193,0xff06182a);
+   float[] button=SkinLayout.button(3);
+   d.round(button[0],button[1],button[2],button[3],22,0xff123f4a);
+   d.text("END BATH",button[0]+38,button[1]+46,24,INK);
+  }
   else CareRenderer.buttons(d,s.pet.asleep);
  }
  static final float[][] SPRITES=PaperArt.OPPONENTS;

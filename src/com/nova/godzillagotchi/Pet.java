@@ -1,5 +1,6 @@
 package com.nova.godzillagotchi;
 public class Pet {
+ public final Outings outings = new Outings();
  public double food=80,joy=80,energy=85,clean=90;public int xp=0;public boolean asleep=false;public long updated;
  public long lastHappy=-10000;
  public String name="Godzilla";public long birthday,lastBond=-60000,lastGame=-600000,hatchedAt;public boolean hatched=true,adopted=false,lightsOff=false,sick=false;

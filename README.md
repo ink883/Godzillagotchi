@@ -1,11 +1,19 @@
-# Godzillagotchi 3.8
+# Godzillagotchi 4.0
 
 Unofficial Android 8+ virtual-pet game by Nova, designed around a 720 × 720 screen.
 
 ![Gameplay showcase across the Classic, Puppet, Vinyl and LCD themes](docs/showcase.gif)
 
 ## Install
-Open Godzillagotchi-3.8.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+Open Godzillagotchi-4.0.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+
+## New in 4.0
+Godzilla develops a favorite activity from completed outings. Keep him comfortable and look for a tappable outing request at home. Finish the requested activity for 5 extra joy. His profile shows the current favorite.
+
+CLEAN starts a bath. Rub five muddy spots to lift the dirt, make bubbles, and see Godzilla grin. Use END BATH to leave early.
+
+## New in 3.9
+Vinyl Godzilla composites cleanly over the scene. The faint rectangular tint around his sprites is removed in the habitat, harbor and combat.
 
 ## New in 3.8
 Vinyl buildings recoil, buckle, and break into tumbling toy sections. LCD buildings blink on impact, lose fixed segments as damage builds, and switch off from top to bottom when destroyed. Both effects apply to the city tower and all six landmarks.
