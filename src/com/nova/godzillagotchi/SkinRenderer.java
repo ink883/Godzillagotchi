@@ -11,7 +11,7 @@ public final class SkinRenderer {
   void circle(float x,float y,float r,int color);
   void save();void restore();void rotate(float degrees,float cx,float cy);void clipRound(float x,float y,float w,float h,float radius);
  }
- public static class State {public int theme=Theme.PUPPET;public int fishType;public Pet pet;public Rampage rampage;public City city;public Battle battle;public long battleNow;public boolean night,playing,showCity;public long now,gameEnd,effectEnd;public String effect="",message="";}
+ public static class State {public int theme=Theme.PUPPET;public int fishType;public Pet pet;public Harbor harbor;public long harborNow;public Rampage rampage;public City city;public Battle battle;public long battleNow;public boolean night,playing,showCity;public long now,gameEnd,effectEnd;public String effect="",message="";}
  static final float[][] FISH=PaperArt.PROPS;
  final int INK=0xfff0e8cc,CYAN=0xff69e4f1;
  public void draw(Painter d,State s){
@@ -20,6 +20,15 @@ public final class SkinRenderer {
   d.beginDisplay(DisplayFrame.inverted(s));
   d.rect(40,78,640,425,0xff081d2b);
   d.image("paper_background",0,s.night?.5f:0,1,.5f,40,108,640,337);
+  if(s.harbor!=null){
+   d.rect(40,78,640,30,0xff081d2b);
+   d.text("HARBOR OUTING",76,99,14,INK);
+   d.text(s.night?"NIGHT":"DAY",586,99,14,INK);
+   HarborRenderer.draw(d,s);
+   d.endDisplay();
+   HarborRenderer.buttons(d,s.harbor,s.harborNow);
+   return;
+  }
   if(s.rampage!=null){RampageRenderer.draw(d,s);}else if(s.battle!=null){drawBattle(d,s);}else if(s.showCity){d.rect(50,108,620,337,s.night?0xa5081729:0x73405f79);drawCity(d,s);}else{
    float growth=s.pet.sizeScale();
    float size=260*growth;float bob=s.pet.asleep?0:(float)Math.sin(s.now/320.0)*2;
@@ -52,7 +61,7 @@ public final class SkinRenderer {
   if(s.battle!=null||s.rampage!=null){}else if(s.playing){d.round(145,113,430,25,8,0xec082332);d.text("STOMP "+s.city.count+"/10   "+Math.max(0,(s.gameEnd-s.now+999)/1000)+"s  / TAP BUILDINGS",160,131,13,INK);}
   else if(s.showCity){d.round(217,113,286,25,8,0xec082332);d.text("CITY STOMPED! +12 XP",237,131,16,INK);}
   else if(s.now<s.effectEnd){d.round(76,416,568,25,8,0xdd092330);d.text(s.message,90,433,13,INK);}
-  if(s.rampage!=null){Rampage r=s.rampage;d.rect(40,445,640,57,0xff082330);d.text(r.log,67,466,13,INK);d.text("LV "+(s.pet.level()+1)+" / "+r.kills+" THREATS STOPPED   "+(r.finished?"BACK TO PET":r.phase>0?"ATTACK IN PROGRESS":"CHOOSE AN ATTACK"),67,486,12,CYAN);}
+  if(s.rampage!=null){Rampage r=s.rampage;d.rect(40,445,640,57,0xff082330);d.text(r.log.replace("paper tearing",s.theme==Theme.VINYL?"shell buckling":s.theme==Theme.LCD?"segments dropping out":"paper tearing"),67,466,13,INK);d.text("LV "+(s.pet.level()+1)+" / "+r.kills+" THREATS STOPPED   "+(r.finished?"BACK TO PET":r.phase>0?"ATTACK IN PROGRESS":"CHOOSE AN ATTACK"),67,486,12,CYAN);}
   else if(s.battle==null){
   d.rect(40,445,640,57,0xff082330);d.rect(40,445,640,2,0xff2b7181);
   String[] labels={"FOOD","JOY","ENERGY","CLEAN"};int[] colors={0xff68e980,0xffffd87c,0xff40d5ed,0xffa492f2};double[] v={s.pet.food,s.pet.joy,s.pet.energy,s.pet.clean};

@@ -12,6 +12,8 @@ done
 for test in PetTest CityTest SkinTest BattleTest RampageTest CareTest CareStoreTest ThemeTest SoundCuesTest InteractionTest RushTest LandmarkTest DisplayTest; do
  "$JDK/bin/java" -Djava.awt.headless=true -cp "build/tests:$ANDROID_JAR" "$test"
 done
-"$JDK/bin/java" -Djava.awt.headless=true -cp build/tests CarePreview res/drawable-nodpi ../godzillagotchi-3.6
+"$JDK/bin/java" -Djava.awt.headless=true -cp build/tests CarePreview res/drawable-nodpi ../godzillagotchi-3.8
+
+"$JDK/bin/java" -Djava.awt.headless=true -cp build/tests HarborTest res/drawable-nodpi ../Godzillagotchi-3.8-harbor.png
 
 python3 tests/audio_check.py

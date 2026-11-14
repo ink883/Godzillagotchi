@@ -1,9 +1,19 @@
-# Godzillagotchi 3.6
+# Godzillagotchi 3.8
 
 Unofficial Android 8+ virtual-pet game by Nova, designed around a 720 × 720 screen.
 
+![Gameplay showcase across the Classic, Puppet, Vinyl and LCD themes](docs/showcase.gif)
+
 ## Install
-Open Godzillagotchi-3.6.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+Open Godzillagotchi-3.8.apk on the Android device and install over the existing app. Do not uninstall first. The package and signing key are unchanged; accumulated XP and care stats are retained. Growth stages are recalculated using the new, slower thresholds.
+
+## New in 3.8
+Vinyl buildings recoil, buckle, and break into tumbling toy sections. LCD buildings blink on impact, lose fixed segments as damage builds, and switch off from top to bottom when destroyed. Both effects apply to the city tower and all six landmarks.
+
+## New in 3.7
+PLAY > WALK TO THE HARBOR starts a short automatic walk. Tap the crate when it appears, then press CATCH when the marker crosses the highlighted zone. You get three attempts. RETURN HOME is available throughout the outing. Collected fish are saved immediately and appear in FEED, where a fresh fish restores 30 food points instead of 22.
+
+Kaiju Rush uses three recorded swallows timed to the raised can.
 
 ## New in 3.6
 

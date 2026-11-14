@@ -9,9 +9,11 @@
   {
     "asset": "drink.wav",
     "duration": 1.6,
-    "peak": 0.65,
-    "rms": 0.1243,
-    "sha256": "4dbb6d0a558db49f66fcf63f4263b2449a5823e55ebedf50cfd84661fb6f3e87"
+    "peak": 0.85,
+    "rms": 0.0659,
+    "sha256": "3fd7b455d63ad353431a7c539d181ec24ca279900d1fc7d51330d367d547b6aa",
+    "source_file": "swallow_gulp.mp3",
+    "source_start": 0.19
   },
   {
     "asset": "munch.wav",

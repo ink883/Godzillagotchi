@@ -25,8 +25,14 @@ public class Pet {
  public float sizeScale(){return .74f+level()*.09f;}
  public static int damage(int move,int level){return Math.round(new int[]{14,18,21,34}[move]*(1+Math.max(0,Math.min(4,level))*.20f));}
  public boolean drinkRush(){if(!hatched||asleep)return false;energy=clip(energy+33);return true;}
+ private final int[] harborFish = new int[3];
+ public int harborFish(int type) { return harborFish[type]; }
+ public void restoreHarborFish(int type, int count) { harborFish[type] = Math.max(0,count); }
+ public void storeHarborFish(int type) {
+  if (harborFish[type] < Integer.MAX_VALUE) harborFish[type]++;
+ }
  public void feed(){feed(favorite);}
- public void feed(int fish){if(!hatched||asleep)return;food=clip(food+22);clean=clip(clean-4);xp+=2;meals++;weight=Math.min(80,weight+.3);if(fish==favorite)joy=clip(joy+5);}
+ public void feed(int fish){if(!hatched||asleep)return;boolean fromHarbor=fish>=0&&fish<harborFish.length&&harborFish[fish]>0;if(fromHarbor)harborFish[fish]--;food=clip(food+(fromHarbor?30:22));clean=clip(clean-4);xp+=2;meals++;weight=Math.min(80,weight+.3);if(fish==favorite)joy=clip(joy+5);}
  public boolean cleanMess(){if(!hatched||messes<=0)return false;messes--;clean=clip(clean+10);joy=clip(joy+1);return true;}
  public void wash(){if(!hatched)return;clean=clip(clean+30);joy=clip(joy+3);messes=0;poopHours=0;baths++;xp+=2;}
  public void play(){joy=clip(joy+25);energy=clip(energy-12);food=clip(food-7);xp+=12;}

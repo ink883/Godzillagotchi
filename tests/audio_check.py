@@ -15,6 +15,6 @@ for record in records:
  assert abs(a[0])<100 and abs(a[-1])<100,'Abrupt sample edge'
  assert record['sha256'] not in seen;seen.add(record['sha256'])
  demo.append(raw);demo.append(b'\0\0'*11025)
-with wave.open(str(root.parent/'Godzillagotchi-3.6-sounds-preview.wav'),'wb') as f:
+with wave.open(str(root.parent/'Godzillagotchi-3.8-sounds-preview.wav'),'wb') as f:
  f.setnchannels(1);f.setsampwidth(2);f.setframerate(22050);f.writeframes(b''.join(demo))
 print('PASS: eleven distinct mono PCM effects, bounded decoded sizes, no output clipping, non-silent levels and click-free endpoints')
